@@ -1,0 +1,125 @@
+<nav class="navbar">
+  <div class="navbar-container">
+
+    <a href="/" class="logo">
+      Members Only
+    </a>
+
+    <button
+      type="button"
+      class="menu-toggle"
+      id="menuToggle">
+      ☰
+    </button>
+
+    <div class="mobile-menu" id="mobileMenu">
+
+      <ul class="nav-links">
+        <li>
+          <a
+            href="/"
+            class="<%= locals.currentPath === '/' ? 'active' : '' %>">
+            Home
+          </a>
+        </li>
+
+        <% if (locals.currentUser) { %>
+
+          <li>
+            <a
+              href="/messages/new"
+              class="<%= locals.currentPath.startsWith('/messages/new') ? 'active' : '' %>">
+              New Message
+            </a>
+          </li>
+
+          <% if (!locals.currentUser.membership_status) { %>
+            <li>
+              <a
+                href="/join-club"
+                class="<%= locals.currentPath.startsWith('/join-club') ? 'active' : '' %>">
+                Join Club
+              </a>
+            </li>
+          <% } %>
+
+        <% } %>
+      </ul>
+
+      <div class="nav-right">
+
+        <% if (locals.currentUser) { %>
+
+          <div class="user-info">
+
+            <div class="user-details">
+              <span class="user-name">
+                <%= locals.currentUser.firstname %>
+                <%= locals.currentUser.lastname %>
+              </span>
+
+              <div class="user-badges">
+
+                <% if (locals.currentUser.is_admin) { %>
+                  <span class="badge badge-admin">
+                    Admin
+                  </span>
+                <% } else if (locals.currentUser.membership_status) { %>
+                  <span class="badge badge-member">
+                    Member
+                  </span>
+                <% } else { %>
+                  <span class="badge badge-guest">
+                    User
+                  </span>
+                <% } %>
+
+              </div>
+            </div>
+
+            <a href="/auth/logout" class="logout-btn">
+              Logout
+            </a>
+
+          </div>
+
+        <% } else { %>
+
+          <div class="guest-actions">
+
+            <a
+              href="/auth/login"
+              class="<%= locals.currentPath.startsWith('/auth/login') ? 'active' : '' %>">
+              Login
+            </a>
+
+            <a
+              href="/auth/signup"
+              class="<%= locals.currentPath.startsWith('/auth/signup') ? 'active' : '' %>">
+              Sign Up
+            </a>
+
+          </div>
+
+        <% } %>
+
+      </div>
+
+    </div>
+
+  </div>
+</nav>
+
+<script>
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  menuToggle.addEventListener('click', () => {
+    mobileMenu.classList.toggle('show');
+
+    menuToggle.textContent =
+      mobileMenu.classList.contains('show')
+        ? '✕'
+        : '☰';
+  });
+</script>

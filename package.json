@@ -4,7 +4,9 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "node --env-file=.env --watch app.js",
+    "seed:dev": "node --env-file=.env db/populateDB.js",
+    "seed:prod": "node db/populateDB.js"
   },
   "keywords": [],
   "author": "",

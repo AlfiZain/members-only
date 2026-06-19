@@ -1,0 +1,41 @@
+<section class="form-page">
+  <div class="form-card">
+    <div class="form-header">
+      <h1>Welcome Back</h1>
+      <p>Login to your account.</p>
+    </div>
+
+    <form action="/auth/login" method="POST" class="form">
+
+      <% if (locals.error) { %>
+        <small class="field-error">
+          <%= locals.error %>
+        </small>
+      <% } %>
+
+      <div class="form-group">
+        <label for="email"> Email </label>
+
+        <input type="email" id="email" name="email" required />
+
+      </div>
+
+      <div class="form-group">
+        <label for="password"> Password </label>
+
+        <input type="password" id="password" name="password" required />
+      </div>
+
+      <button type="submit" class="form-submit">
+        Login
+      </button>
+    </form>
+
+    <div class="form-footer">
+      <p>
+        Don't have an account?
+        <a href="/auth/signup">Create Account</a>
+      </p>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,117 @@
+<section class="form-page">
+  <div class="form-card">
+    <div class="form-header">
+      <h1>Create Account</h1>
+      <p>Join Members Only and start sharing messages.</p>
+    </div>
+
+    <%
+      const getError = (field) => errors?.find(err => err.path === field);
+      const firstnameError = getError('firstname');
+      const lastnameError = getError('lastname');
+      const emailError = getError('email');
+      const passwordError = getError('password');
+      const confirmPasswordError = getError('confirmPassword');
+    %>
+
+    <form action="/auth/signup" method="POST" class="form">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="firstname">First Name</label>
+
+          <input
+            type="text"
+            id="firstname"
+            name="firstname"
+            required
+          />
+
+          <% if (firstnameError) { %>
+            <small class="field-error">
+              <%= firstnameError.msg %>
+            </small>
+          <% } %>
+        </div>
+
+        <div class="form-group">
+          <label for="lastname">Last Name</label>
+
+          <input
+            type="text"
+            id="lastname"
+            name="lastname"
+            required
+          />
+
+          <% if (lastnameError) { %>
+            <small class="field-error">
+              <%= lastnameError.msg %>
+            </small>
+          <% } %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+        />
+
+        <% if (emailError) { %>
+          <small class="field-error">
+            <%= emailError.msg %>
+          </small>
+        <% } %>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+
+        <input
+          type="password"
+          id="password"
+          name="password"
+          required
+        />
+
+        <% if (passwordError) { %>
+          <small class="field-error">
+            <%= passwordError.msg %>
+          </small>
+        <% } %>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+
+        <input
+          type="password"
+          id="confirmPassword"
+          name="confirmPassword"
+          required
+        />
+
+        <% if (confirmPasswordError) { %>
+          <small class="field-error">
+            <%= confirmPasswordError.msg %>
+          </small>
+        <% } %>
+      </div>
+
+      <button type="submit" class="form-submit">
+        Signup
+      </button>
+    </form>
+
+    <div class="form-footer">
+      <p>
+        Already have an account?
+        <a href="/auth/login">Login</a>
+      </p>
+    </div>
+  </div>
+</section>

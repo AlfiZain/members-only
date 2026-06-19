@@ -1,5 +1,10 @@
 import { Client } from 'pg';
 import bcrypt from 'bcryptjs';
+import { readFile } from 'fs/promises';
+import { fileURLToPath } from 'url';
+import path from 'node:path';
+
+const PASSWORD = '@Password123';
 
 const users = [
   // Admin
@@ -112,10 +117,15 @@ async function main() {
   const userIds = {};
 
   try {
+    const schema = await readFile(
+      path.join(path.dirname(fileURLToPath(import.meta.url)), 'schema.sql'),
+      'utf-8',
+    );
+    const hashedPassword = await bcrypt.hash(PASSWORD, 10);
+
     await client.connect();
 
-    const hashedPassword = await bcrypt.hash('password123', 10);
-
+    await client.query(schema);
     await client.query(`
       TRUNCATE TABLE 
         users,
@@ -166,7 +176,7 @@ async function main() {
     }
 
     console.log('Database seeded successfully');
-    console.log('Login password for all users: password123');
+    console.log(`Login password for all users: ${PASSWORD}`);
   } catch (error) {
     console.error('Seeding failed:', error);
   } finally {

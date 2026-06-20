@@ -3,6 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import homeRouter from './routes/homeRouter.js';
 import authRouter from './routes/authRouter.js';
+import joinClubRouter from './routes/joinClubRouter.js';
 import session from 'express-session';
 import connectPgSimple from 'connect-pg-simple';
 import pool from './db/pool.js';
@@ -47,6 +48,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/auth', authRouter);
+app.use('/join-club', joinClubRouter);
 app.use('/', homeRouter);
 
 app.use((err, req, res, next) => {

@@ -27,3 +27,17 @@ export async function createUser({
     [firstname, lastname, email, password, membership_status, is_admin],
   );
 }
+
+export async function promoteToMember(id) {
+  await pool.query('UPDATE users SET membership_status = $1 WHERE id = $2', [
+    true,
+    id,
+  ]);
+}
+
+export async function promoteToAdmin(id) {
+  await pool.query(
+    'UPDATE users SET membership_status = $1, is_admin = $2 WHERE id = $3',
+    [true, true, id],
+  );
+}

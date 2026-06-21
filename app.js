@@ -10,6 +10,7 @@ import homeRouter from './routes/homeRouter.js';
 import authRouter from './routes/authRouter.js';
 import joinClubRouter from './routes/joinClubRouter.js';
 import messagesRouter from './routes/messagesRouter.js';
+import * as errorController from './controllers/errorController.js';
 import './config/passport.js';
 
 const app = express();
@@ -52,6 +53,8 @@ app.use('/auth', authRouter);
 app.use('/join-club', joinClubRouter);
 app.use('/messages', messagesRouter);
 app.use('/', homeRouter);
+
+app.use(errorController.notFound);
 
 app.use((err, req, res, next) => {
   console.error(err);

@@ -1,1 +1,64 @@
-<h1>THIS IS HOMEPAGE</h1>
+<section class="home-page">
+  <div class="home-header">
+    <h1>Members Only</h1>
+
+    <p>
+      Anonymous messages from the community.
+    </p>
+  </div>
+
+  <% if (!messages.length) { %>
+    <div class="empty-state">
+      <p>No messages yet.</p>
+    </div>
+  <% } %>
+
+  <div class="messages-grid">
+    <% messages.forEach(message => { %>
+
+      <article class="message-card">
+        <h2><%= message.title %></h2>
+
+        <p class="message-content">
+          <%= message.content %>
+        </p>
+
+        <% if (locals.currentUser?.membership_status|| locals.currentUser?.is_admin) { %>
+          <div class="message-meta">
+            <span>
+              By
+              <strong>
+                <%= message.firstname %>
+                <%= message.lastname %>
+              </strong>
+            </span>
+
+            <span>
+              <%= new Intl.DateTimeFormat('id-ID', {
+                dateStyle: 'medium',
+                timeStyle: 'short'
+              }).format(new Date(message.created_at)) %>
+            </span>
+          </div>
+        <% } %>
+
+        <% if (locals.currentUser?.is_admin) { %>
+          <form
+            action="/messages/<%= message.id %>/delete"
+            method="POST"
+            onsubmit="return confirm('Are you sure you want to delete this message?')"
+          >
+            <button
+              type="submit"
+              class="delete-btn"
+            >
+              Delete
+            </button>
+          </form>
+        <% } %>
+
+      </article>
+
+    <% }) %>
+  </div>
+</section>

@@ -1,0 +1,12 @@
+<section class="form-page">
+  <div class="form-card">
+    <div class="form-header">
+      <h1><%= locals.title %></h1>
+      <p>Share a new message with the community.</p>
+    </div>
+
+    <%- include('../../partials/messages/form.ejs', {
+        action: '/messages'
+    }) %>
+  </div>
+</section>

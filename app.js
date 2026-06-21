@@ -1,14 +1,15 @@
 import express from 'express';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import session from 'express-session';
+import connectPgSimple from 'connect-pg-simple';
+import passport from 'passport';
+
+import pool from './db/pool.js';
 import homeRouter from './routes/homeRouter.js';
 import authRouter from './routes/authRouter.js';
 import joinClubRouter from './routes/joinClubRouter.js';
-import session from 'express-session';
-import connectPgSimple from 'connect-pg-simple';
-import pool from './db/pool.js';
-import passport from 'passport';
-
+import messagesRouter from './routes/messagesRouter.js';
 import './config/passport.js';
 
 const app = express();
@@ -49,6 +50,7 @@ app.use((req, res, next) => {
 
 app.use('/auth', authRouter);
 app.use('/join-club', joinClubRouter);
+app.use('/messages', messagesRouter);
 app.use('/', homeRouter);
 
 app.use((err, req, res, next) => {

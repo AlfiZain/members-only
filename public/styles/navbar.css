@@ -222,21 +222,11 @@
 
 @media (max-width: 900px) {
   .navbar-container {
-    gap: 1rem;
-  }
-
-  .user-name {
-    display: none;
-  }
-}
-
-@media (max-width: 900px) {
-  .navbar-container {
     position: relative;
   }
 
   .user-name {
-    display: none;
+    padding: 0.5rem;
   }
 
   .menu-toggle {
@@ -306,7 +296,9 @@
   }
 
   .user-details {
-    align-items: center;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: row;
   }
 
   .guest-actions {

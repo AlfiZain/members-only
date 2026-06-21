@@ -1,0 +1,53 @@
+<%
+    const isEdit = typeof messages !== 'undefined';
+    const getError = (field) => errors?.find(err => err.path === field);
+    const titleError = getError('title');
+    const contentError = getError('content');
+
+    const oldValue = (field) => {
+        if(isEdit) return messages[field] ?? '';
+        if(typeof values !== 'undefined') return values[field] ?? '';
+        return '';
+    }
+%>
+<form action="<%= action %>" method="POST" class="form">
+
+    <div class="form-group">
+    <label for="title">Title</label>
+
+    <input
+        type="text"
+        id="title"
+        name="title"
+        required
+        value="<%= oldValue('title') %>"
+    />
+
+    <% if (titleError) { %>
+        <small class="field-error">
+        <%= titleError.msg %>
+        </small>
+    <% } %>
+    </div>
+
+    <div class="form-group">
+    <label for="content">Message</label>
+
+    <textarea
+        id="content"
+        name="content"
+        rows="6"
+        required
+    ><%= oldValue('content') %></textarea>
+
+    <% if (contentError) { %>
+        <small class="field-error">
+        <%= contentError.msg %>
+        </small>
+    <% } %>
+    </div>
+
+    <button type="submit" class="form-submit">
+    Create Message
+    </button>
+</form>
